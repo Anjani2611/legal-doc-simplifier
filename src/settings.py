@@ -4,20 +4,24 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     app_name: str = "Legal Document Simplifier"
     app_version: str = "0.1.0"
-    environment: str = "development"
     debug: bool = True
-    database_url: str
+
+    # DB
+    DATABASE_URL: str
+
+    # Security
+    environment: str = "development"
+    SECRET_KEY: str  # no hard-coded default
+    TOKEN_EXPIRE_MINUTES: int = 30
+
+    # File handling
     UPLOAD_DIR: str = "uploads"
     MAX_FILE_SIZE: int = 10 * 1024 * 1024  # 10 MB
-    ALLOWED_EXTENSIONS: set = {"txt", "pdf", "docx"}
-
-    # redis_url: str
+    ALLOWED_EXTENSIONS: list[str] = ["txt", "pdf", "docx"]
 
     class Config:
-        env_prefix = "" 
-        extra = "ignore"  
         env_file = ".env"
-        env_file_encoding = "utf-8"
+        extra = "ignore"
 
 
 settings = Settings()

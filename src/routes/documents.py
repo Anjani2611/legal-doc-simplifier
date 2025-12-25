@@ -5,16 +5,16 @@ from sqlalchemy.orm import Session
 from pathlib import Path
 import shutil
 import logging
+from datetime import datetime
 
 from src.middleware import limiter
 from src.database import get_db
 from src.models.document import Document
-from src.schemas.document import DocumentCreate, DocumentResponse, DocumentList
+from src.schemas.document import DocumentCreate  # sirf create input ke liye
 from src.config import settings
 from src.utils.document_extractor import DocumentExtractor
 from src.cache import cache_result
 from src.tasks import celery_app
-
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -23,8 +23,23 @@ router = APIRouter(prefix="/documents", tags=["documents"])
 Path(settings.UPLOAD_DIR).mkdir(exist_ok=True)
 
 
-@router.get("/", response_model=DocumentList)
-@cache_result(ttl_seconds=300) 
+def serialize_document(doc: Document) -> dict:
+    """Convert SQLAlchemy Document -> plain dict with ISO datetime."""
+    return {
+        "id": doc.id,
+        "filename": doc.filename,
+        "file_path": doc.file_path,
+        "file_size": doc.file_size,
+        "original_text": doc.original_text,
+        "document_type": doc.document_type,
+        "language": doc.language,
+        "processing_status": doc.processing_status,
+        "created_at": doc.created_at.isoformat() if isinstance(doc.created_at, datetime) else None,
+    }
+
+
+@router.get("/")
+@cache_result(ttl_seconds=300)
 async def list_documents(
     request: Request,
     skip: int = 0,
@@ -35,13 +50,13 @@ async def list_documents(
     documents = db.query(Document).offset(skip).limit(limit).all()
     total = db.query(Document).count()
 
-    return DocumentList(
-        total=total,
-        documents=documents,
-    )
+    return {
+        "total": total,
+        "documents": [serialize_document(d) for d in documents],
+    }
 
 
-@router.get("/{document_id}", response_model=DocumentResponse)
+@router.get("/{document_id}")
 async def get_document(
     request: Request,
     document_id: int,
@@ -53,16 +68,16 @@ async def get_document(
     if not document:
         raise HTTPException(status_code=404, detail="Document not found")
 
-    return document
+    return serialize_document(document)
 
 
-@router.post("/", response_model=DocumentResponse)
+@router.post("/")
 async def create_document(
     request: Request,
     doc: DocumentCreate,
     db: Session = Depends(get_db),
 ):
-    """Create a new document (placeholder)"""
+    """Create a new document"""
 
     db_doc = Document(
         filename=doc.filename,
@@ -77,10 +92,10 @@ async def create_document(
     db.commit()
     db.refresh(db_doc)
 
-    return db_doc
+    return serialize_document(db_doc)
 
 
-@router.post("/upload", response_model=DocumentResponse)
+@router.post("/upload")
 @limiter.limit("10/minute")  # 10 uploads per minute per IP
 async def upload_document(
     request: Request,
@@ -142,7 +157,7 @@ async def upload_document(
 
         logger.info(f"✓ Document uploaded: {file.filename} (ID: {db_doc.id})")
 
-        return db_doc
+        return serialize_document(db_doc)
 
     except HTTPException:
         raise
@@ -179,6 +194,8 @@ async def delete_document(
     except Exception as e:
         logger.error(f"Delete failed: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/tasks/{task_id}", tags=["tasks"])
 async def get_task_status(task_id: str):
     task = celery_app.AsyncResult(task_id)
@@ -187,4 +204,3 @@ async def get_task_status(task_id: str):
         "status": task.status,
         "result": task.result if task.ready() else None,
     }
-
