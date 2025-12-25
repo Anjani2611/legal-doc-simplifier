@@ -12,6 +12,9 @@ from src.models.document import Document
 from src.schemas.document import DocumentCreate, DocumentResponse, DocumentList
 from src.config import settings
 from src.utils.document_extractor import DocumentExtractor
+from src.cache import cache_result
+from src.tasks import celery_app
+
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -21,6 +24,7 @@ Path(settings.UPLOAD_DIR).mkdir(exist_ok=True)
 
 
 @router.get("/", response_model=DocumentList)
+@cache_result(ttl_seconds=300) 
 async def list_documents(
     request: Request,
     skip: int = 0,
@@ -175,3 +179,12 @@ async def delete_document(
     except Exception as e:
         logger.error(f"Delete failed: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+@router.get("/tasks/{task_id}", tags=["tasks"])
+async def get_task_status(task_id: str):
+    task = celery_app.AsyncResult(task_id)
+    return {
+        "task_id": task_id,
+        "status": task.status,
+        "result": task.result if task.ready() else None,
+    }
+
