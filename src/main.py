@@ -4,10 +4,14 @@ from src.routes import documents, simplification, analysis
 from datetime import datetime
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Request
+from src.middleware import RequestLoggingMiddleware, limiter
 from sqlalchemy.orm import Session
-
+from slowapi.errors import RateLimitExceeded
+from slowapi import _rate_limit_exceeded_handler
 from src.settings import settings
 from src.database import get_db, engine, Base
+from datetime import datetime
 from src.schemas.document import HealthResponse
 
 # Create tables on startup
@@ -19,16 +23,18 @@ app = FastAPI(
     debug=settings.debug,
     description="Backend API for legal document simplification and analysis.",
 )
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+app.add_middleware(RequestLoggingMiddleware)
 # Enable CORS for frontend development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change in production
+    allow_origins=["http://localhost:3000", "http://localhost:8000"],  # Restrict origins
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
-
 
 @app.get("/", tags=["root"])
 async def read_root():

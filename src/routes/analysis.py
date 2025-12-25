@@ -1,6 +1,7 @@
 """Document analysis endpoints (risk detection, metrics, etc.)"""
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Request
+from src.middleware import limiter
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 import logging
@@ -92,7 +93,9 @@ async def analyze_document(
 
 
 @router.get("/document/{document_id}/risks")
+@limiter.limit("60/minute")
 async def get_document_risks(
+    request: Request,
     document_id: int,
     risk_level: Optional[str] = None,
     db: Session = Depends(get_db),
