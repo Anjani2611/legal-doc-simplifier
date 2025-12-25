@@ -1,6 +1,6 @@
 """Main FastAPI application entry point"""
 
-from src.routes import documents
+from src.routes import documents, simplification
 from datetime import datetime
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -73,6 +73,7 @@ async def get_config():
     }
 
 app.include_router(documents.router)
+app.include_router(simplification.router)
 
 @app.on_event("startup")
 async def startup_event():
