@@ -19,16 +19,17 @@ from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
 
 from src.logging_config import setup_logging
 from src.database import Base, engine, get_db
-from src.logging_config import setup_logging
-from src.middleware import RequestLoggingMiddleware, limiter
 from src.routes import analysis, documents, simplification
 from src.schemas.document import HealthResponse
 from src.settings import settings
 from src.webhooks import webhook_manager
-from src.metrics import api_requests  # Prometheus Counter
+from src.middleware import (
+    RequestLoggingMiddleware,
+    MetricsMiddleware,
+    limiter,
+)
 from src.api.v1 import v1_router
 from src.api.v2 import v2_router
-
 
 # ---- Logging setup ----
 setup_logging()
@@ -45,11 +46,16 @@ app = FastAPI(
     description="Backend API for legal document simplification and analysis.",
 )
 
-# ---- Rate limiting + logging middleware ----
+# ---- Rate limiting + middleware ----
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# Global SlowAPI rate-limiting middleware
 app.add_middleware(SlowAPIMiddleware)
+
+# Custom middlewares (last added runs first on request)
 app.add_middleware(RequestLoggingMiddleware)
+app.add_middleware(MetricsMiddleware)
 
 # ---- CORS ----
 app.add_middleware(
@@ -60,34 +66,23 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ---- Optional in-memory metrics ----
+# ---- Optional basic in-memory metrics ----
 metrics = Counter()
 
 
 @app.middleware("http")
-async def metrics_and_logging(request: Request, call_next):
-    """Collect Prometheus + basic metrics and log each request."""
+async def basic_metrics(request: Request, call_next):
+    """Simple in-memory metrics for /metrics/basic."""
     metrics["requests_total"] += 1
     start = time.time()
     response = await call_next(request)
     duration_ms = (time.time() - start) * 1000
     metrics["latency_sum_ms"] += duration_ms
-
-    api_requests.labels(
-        method=request.method,
-        endpoint=request.url.path,
-        status_code=response.status_code,
-    ).inc()
-
-    logger.info(
-        f"{request.method} {request.url.path} "
-        f"status={response.status_code} duration_ms={duration_ms:.2f}"
-    )
     return response
 
 
 @app.get("/metrics/basic", tags=["metrics"])
-async def basic_metrics():
+async def basic_metrics_endpoint():
     """Return simple in-memory metrics for requests."""
     total = metrics.get("requests_total", 0)
     latency_sum = metrics.get("latency_sum_ms", 0.0)
@@ -116,7 +111,7 @@ async def register_webhook(event: str, url: str):
 
 @app.get("/", tags=["root"])
 async def read_root():
-    """Root endpoint - returns API info"""
+    """Root endpoint - returns API info."""
     return {
         "message": f"{settings.app_name} is running",
         "environment": settings.environment,
@@ -126,7 +121,7 @@ async def read_root():
 
 @app.get("/health", tags=["health"], response_model=HealthResponse)
 async def health_check(db: Session = Depends(get_db)):
-    """Comprehensive health check including database"""
+    """Comprehensive health check including database."""
     try:
         db.execute(text("SELECT 1"))
         db_status = "ok"
@@ -142,7 +137,7 @@ async def health_check(db: Session = Depends(get_db)):
 
 @app.get("/config", tags=["debug"])
 async def get_config():
-    """Get current config (debug endpoint - remove in production)"""
+    """Get current config (debug endpoint - disable in production)."""
     if not settings.debug:
         return {"error": "Not available in production"}
 
@@ -159,7 +154,7 @@ async def get_config():
     }
 
 
-# ---- Legacy routers (if you still want non-versioned paths) ----
+# ---- Legacy routers ----
 app.include_router(documents.router)
 app.include_router(simplification.router)
 app.include_router(analysis.router)
@@ -171,7 +166,7 @@ app.include_router(v2_router)
 
 @app.on_event("startup")
 async def startup_event():
-    """Run on application startup"""
+    """Run on application startup."""
     logger.info(f"Starting {settings.app_name}")
     logger.info(f"Environment: {settings.environment}")
     logger.info("Database configured")
@@ -179,5 +174,5 @@ async def startup_event():
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    """Run on application shutdown"""
+    """Run on application shutdown."""
     logger.info(f"Shutting down {settings.app_name}")
