@@ -5,3 +5,5 @@ uploads/
 .env
 __pycache__/
 *.py[cod]
+*.pyc
+.coverage

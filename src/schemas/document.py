@@ -1,6 +1,8 @@
 from datetime import datetime
-from pydantic import BaseModel, Field, validator
-from typing import Optional, List
+from enum import Enum
+from typing import Optional, List, Dict, Any
+
+from pydantic import BaseModel, Field, field_validator
 
 
 # ====== Models used by document routes ======
@@ -22,8 +24,7 @@ class DocumentResponse(BaseModel):
     processing_status: str
     created_at: str
 
-    class Config:
-        from_attributes = True  # map from SQLAlchemy model
+    model_config = {"from_attributes": True}
 
 
 class DocumentList(BaseModel):
@@ -31,12 +32,11 @@ class DocumentList(BaseModel):
     documents: List[DocumentResponse]
 
 
-# ====== Day 11 validation & sanitization ======
-
 class DocumentUploadSchema(BaseModel):
     document_type: str = Field(..., min_length=1, max_length=50)
 
-    @validator("document_type")
+    @field_validator("document_type")
+    @classmethod
     def validate_document_type(cls, v):
         allowed_types = {"contract", "agreement", "nda", "terms", "other"}
         if v.lower() not in allowed_types:
@@ -47,7 +47,8 @@ class DocumentUploadSchema(BaseModel):
 class SimplifyTextSchema(BaseModel):
     text: str = Field(..., min_length=10, max_length=50000)
 
-    @validator("text")
+    @field_validator("text")
+    @classmethod
     def validate_text(cls, v):
         v = v.strip()
         if len(v) < 10:
@@ -55,14 +56,24 @@ class SimplifyTextSchema(BaseModel):
         return v
 
 
+class TargetLevel(str, Enum):
+    simple = "simple"
+    intermediate = "intermediate"
+    advanced = "advanced"
+
+
 class SimplifyRequest(BaseModel):
-    text: str
+    text: str = Field(..., min_length=1, description="Text to simplify")
+    target_level: TargetLevel
+    language: str
+    options: Optional[Dict[str, Any]] = None
 
 
 class SimplifyResponse(BaseModel):
     original: str
     simplified: str
     reduction: float
+
 
 class HealthResponse(BaseModel):
     status: str
