@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/documents", tags=["documents"])
 
 # Ensure uploads directory exists
-Path(settings.UPLOAD_DIR).mkdir(exist_ok=True)
+Path(settings.upload_dir).mkdir(exist_ok=True)
 
 
 def serialize_document(doc: Document) -> dict:
@@ -131,7 +131,7 @@ async def upload_document(
                 detail=f"Unsupported format. Allowed: {settings.ALLOWED_EXTENSIONS}",
             )
 
-        file_path = Path(settings.UPLOAD_DIR) / file.filename
+        file_path = Path(settings.upload_dir) / file.filename
         with open(file_path, "wb") as f:
             shutil.copyfileobj(file.file, f)
 

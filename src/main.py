@@ -166,10 +166,12 @@ app.include_router(v2_router)
 
 @app.on_event("startup")
 async def startup_event():
-    """Run on application startup."""
-    logger.info(f"Starting {settings.app_name}")
+    """Run on application startup"""
+    logger.info(f"Starting {settings.app_name} v{settings.app_version}")
     logger.info(f"Environment: {settings.environment}")
+    logger.info(f"Debug mode: {settings.debug}")
     logger.info("Database configured")
+    logger.info("Cache enabled")
 
 
 @app.on_event("shutdown")

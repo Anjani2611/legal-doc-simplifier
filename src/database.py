@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.pool import QueuePool
 from src.config import settings
 
-DATABASE_URL = settings.DATABASE_URL
+DATABASE_URL = settings.database_url
 
 engine = create_engine(
     DATABASE_URL,
