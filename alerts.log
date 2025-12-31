@@ -1,0 +1,405 @@
+2025-12-31 01:21:10,811 - INFO -    Name: Unknown
+2025-12-31 01:21:10,811 - INFO -    Full payload:
+{
+  "receiver": "test",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "TestAlert",
+        "grafana_folder": "Test Folder",
+        "instance": "Grafana"
+      },
+      "annotations": {
+        "summary": "Notification test"
+      },
+      "startsAt": "2025-12-30T19:51:10.788035522Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "?orgId=1",
+      "fingerprint": "326ea703b01f6100",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=alertname%3DTestAlert&matcher=grafana_folder%3DTest+Folder&matcher=instance%3DGrafana&orgId=1",
+      "dashboardURL": "http://localhost:3000/d/dashboard_uid?from=1767120670788&orgId=1&to=1767124270791",
+      "panelURL": "http://localhost:3000/d/dashboard_uid?from=1767120670788&orgId=1&to=1767124270791&viewPanel=1",
+      "values": {
+        "B": 22,
+        "C": 1
+      },
+      "valueString": "[ var='B' labels={__name__=go_threads, instance=host.docker.internal:3000, job=grafana} value=22 ], [ var='C' labels={__name__=go_threads, instance=host.docker.internal:3000, job=grafana} value=1 ]",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "TestAlert",
+    "grafana_folder": "Test Folder",
+    "instance": "Grafana"
+  },
+  "commonLabels": {
+    "alertname": "TestAlert",
+    "grafana_folder": "Test Folder",
+    "instance": "Grafana"
+  },
+  "commonAnnotations": {
+    "summary": "Notification test"
+  },
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "test-326ea703b01f6100-1767124270",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1] TestAlert Test Folder Grafana ",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: B=22, C=1\nLabels:\n - alertname = TestAlert\n - grafana_folder = Test Folder\n - instance = Grafana\nAnnotations:\n - summary = Notification test\nSource: ?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=alertname%3DTestAlert&matcher=grafana_folder%3DTest+Folder&matcher=instance%3DGrafana&orgId=1\nDashboard: http://localhost:3000/d/dashboard_uid?from=1767120670788&orgId=1&to=1767124270791\nPanel: http://localhost:3000/d/dashboard_uid?from=1767120670788&orgId=1&to=1767124270791&viewPanel=1\n"
+}
+2025-12-31 01:42:27,307 - INFO -    Name: Unknown
+2025-12-31 01:42:27,307 - INFO -    Full payload:
+{
+  "receiver": "webhook Alerts",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "resolved",
+      "labels": {
+        "alertname": "DatasourceError",
+        "datasource_uid": "ef8on1yxsvfggb",
+        "grafana_folder": "Default",
+        "ref_id": "A",
+        "rulename": "low RPS simple"
+      },
+      "annotations": {
+        "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url",
+        "grafana_state_reason": "RuleDeleted"
+      },
+      "startsAt": "2025-12-30T19:39:30Z",
+      "endsAt": "2025-12-30T20:07:30.001492201Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/af8oodgpwbe2oa/view?orgId=1",
+      "fingerprint": "f4b48446756e5257",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Daf8oodgpwbe2oa&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3Dlow+RPS+simple&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": null,
+      "valueString": "",
+      "orgId": 1
+    },
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "DatasourceError",
+        "datasource_uid": "ef8on1yxsvfggb",
+        "grafana_folder": "Default",
+        "ref_id": "A",
+        "rulename": "low RPS simple"
+      },
+      "annotations": {
+        "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url"
+      },
+      "startsAt": "2025-12-30T20:09:30Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/ff8otdy1p9hxcf/view?orgId=1",
+      "fingerprint": "74825a325abb548a",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8otdy1p9hxcf&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3Dlow+RPS+simple&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": null,
+      "valueString": "",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "DatasourceError",
+    "grafana_folder": "Default"
+  },
+  "commonLabels": {
+    "alertname": "DatasourceError",
+    "datasource_uid": "ef8on1yxsvfggb",
+    "grafana_folder": "Default",
+    "ref_id": "A",
+    "rulename": "low RPS simple"
+  },
+  "commonAnnotations": {
+    "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url"
+  },
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "{}/{__grafana_autogenerated__=\"true\"}/{__grafana_receiver__=\"webhook Alerts\"}:{alertname=\"DatasourceError\", grafana_folder=\"Default\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1, RESOLVED:1] DatasourceError Default (ef8on1yxsvfggb A low RPS simple)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: [no value]\nLabels:\n - alertname = DatasourceError\n - datasource_uid = ef8on1yxsvfggb\n - grafana_folder = Default\n - ref_id = A\n - rulename = low RPS simple\nAnnotations:\n - Error = [sse.dataQueryError] failed to execute query [A]: parse \"\": empty url\nSource: http://localhost:3000/alerting/grafana/ff8otdy1p9hxcf/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8otdy1p9hxcf&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3Dlow+RPS+simple&orgId=1\n\n\n**Resolved**\n\nValue: [no value]\nLabels:\n - alertname = DatasourceError\n - datasource_uid = ef8on1yxsvfggb\n - grafana_folder = Default\n - ref_id = A\n - rulename = low RPS simple\nAnnotations:\n - Error = [sse.dataQueryError] failed to execute query [A]: parse \"\": empty url\n - grafana_state_reason = RuleDeleted\nSource: http://localhost:3000/alerting/grafana/af8oodgpwbe2oa/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Daf8oodgpwbe2oa&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3Dlow+RPS+simple&orgId=1\n"
+}
+2025-12-31 01:48:32,549 - INFO -    Name: Unknown
+2025-12-31 01:48:32,550 - INFO -    Full payload:
+{
+  "receiver": "webhook Alerts",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "DatasourceError",
+        "datasource_uid": "ef8on1yxsvfggb",
+        "grafana_folder": "alerts",
+        "ref_id": "A",
+        "rulename": "Metrics Scraping Test"
+      },
+      "annotations": {
+        "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url"
+      },
+      "startsAt": "2025-12-30T20:18:00Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/ff8ou6zcelipsc/view?orgId=1",
+      "fingerprint": "da2b8e60f746b271",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8ou6zcelipsc&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3DMetrics+Scraping+Test&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": null,
+      "valueString": "",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "DatasourceError",
+    "grafana_folder": "alerts"
+  },
+  "commonLabels": {
+    "alertname": "DatasourceError",
+    "datasource_uid": "ef8on1yxsvfggb",
+    "grafana_folder": "alerts",
+    "ref_id": "A",
+    "rulename": "Metrics Scraping Test"
+  },
+  "commonAnnotations": {
+    "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url"
+  },
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "{}/{__grafana_autogenerated__=\"true\"}/{__grafana_receiver__=\"webhook Alerts\"}:{alertname=\"DatasourceError\", grafana_folder=\"alerts\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1] DatasourceError alerts (ef8on1yxsvfggb A Metrics Scraping Test)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: [no value]\nLabels:\n - alertname = DatasourceError\n - datasource_uid = ef8on1yxsvfggb\n - grafana_folder = alerts\n - ref_id = A\n - rulename = Metrics Scraping Test\nAnnotations:\n - Error = [sse.dataQueryError] failed to execute query [A]: parse \"\": empty url\nSource: http://localhost:3000/alerting/grafana/ff8ou6zcelipsc/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8ou6zcelipsc&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3DMetrics+Scraping+Test&orgId=1\n"
+}
+2025-12-31 01:53:32,523 - INFO -    Name: Unknown
+2025-12-31 01:53:32,524 - INFO -    Full payload:
+{
+  "receiver": "webhook Alerts",
+  "status": "resolved",
+  "alerts": [
+    {
+      "status": "resolved",
+      "labels": {
+        "alertname": "DatasourceError",
+        "datasource_uid": "ef8on1yxsvfggb",
+        "grafana_folder": "alerts",
+        "ref_id": "A",
+        "rulename": "Metrics Scraping Test"
+      },
+      "annotations": {
+        "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url",
+        "grafana_state_reason": "MissingSeries"
+      },
+      "startsAt": "2025-12-30T20:18:00Z",
+      "endsAt": "2025-12-30T20:22:30Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/ff8ou6zcelipsc/view?orgId=1",
+      "fingerprint": "da2b8e60f746b271",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8ou6zcelipsc&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3DMetrics+Scraping+Test&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": null,
+      "valueString": "",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "DatasourceError",
+    "grafana_folder": "alerts"
+  },
+  "commonLabels": {
+    "alertname": "DatasourceError",
+    "datasource_uid": "ef8on1yxsvfggb",
+    "grafana_folder": "alerts",
+    "ref_id": "A",
+    "rulename": "Metrics Scraping Test"
+  },
+  "commonAnnotations": {
+    "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url",
+    "grafana_state_reason": "MissingSeries"
+  },
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "{}/{__grafana_autogenerated__=\"true\"}/{__grafana_receiver__=\"webhook Alerts\"}:{alertname=\"DatasourceError\", grafana_folder=\"alerts\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[RESOLVED] DatasourceError alerts (ef8on1yxsvfggb A Metrics Scraping Test)",
+  "state": "ok",
+  "message": "**Resolved**\n\nValue: [no value]\nLabels:\n - alertname = DatasourceError\n - datasource_uid = ef8on1yxsvfggb\n - grafana_folder = alerts\n - ref_id = A\n - rulename = Metrics Scraping Test\nAnnotations:\n - Error = [sse.dataQueryError] failed to execute query [A]: parse \"\": empty url\n - grafana_state_reason = MissingSeries\nSource: http://localhost:3000/alerting/grafana/ff8ou6zcelipsc/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8ou6zcelipsc&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3DMetrics+Scraping+Test&orgId=1\n"
+}
+2025-12-31 01:54:00,031 - INFO -    Name: Unknown
+2025-12-31 01:54:00,032 - INFO -    Full payload:
+{
+  "receiver": "webhook Alerts",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "low RPS simple",
+        "endpoint": "/health",
+        "grafana_folder": "Default",
+        "instance": "app:8000",
+        "job": "legal-doc-api",
+        "method": "GET",
+        "status": "200"
+      },
+      "annotations": {},
+      "startsAt": "2025-12-30T20:23:30Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/ff8otdy1p9hxcf/view?orgId=1",
+      "fingerprint": "223212d8394efc86",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8otdy1p9hxcf&matcher=endpoint%3D%2Fhealth&matcher=instance%3Dapp%3A8000&matcher=job%3Dlegal-doc-api&matcher=method%3DGET&matcher=status%3D200&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": {
+        "A": 0.034785936046056586,
+        "C": 1
+      },
+      "valueString": "[ var='A' labels={endpoint=/health, instance=app:8000, job=legal-doc-api, method=GET, status=200} value=0.034785936046056586 ], [ var='C' labels={endpoint=/health, instance=app:8000, job=legal-doc-api, method=GET, status=200} value=1 ]",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "low RPS simple",
+    "grafana_folder": "Default"
+  },
+  "commonLabels": {
+    "alertname": "low RPS simple",
+    "endpoint": "/health",
+    "grafana_folder": "Default",
+    "instance": "app:8000",
+    "job": "legal-doc-api",
+    "method": "GET",
+    "status": "200"
+  },
+  "commonAnnotations": {},
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "{}/{__grafana_autogenerated__=\"true\"}/{__grafana_receiver__=\"webhook Alerts\"}:{alertname=\"low RPS simple\", grafana_folder=\"Default\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1] low RPS simple Default (/health app:8000 legal-doc-api GET 200)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: A=0.034785936046056586, C=1\nLabels:\n - alertname = low RPS simple\n - endpoint = /health\n - grafana_folder = Default\n - instance = app:8000\n - job = legal-doc-api\n - method = GET\n - status = 200\nAnnotations:\nSource: http://localhost:3000/alerting/grafana/ff8otdy1p9hxcf/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8otdy1p9hxcf&matcher=endpoint%3D%2Fhealth&matcher=instance%3Dapp%3A8000&matcher=job%3Dlegal-doc-api&matcher=method%3DGET&matcher=status%3D200&orgId=1\n"
+}
+2025-12-31 01:54:00,038 - INFO -    Name: Unknown
+2025-12-31 01:54:00,039 - INFO -    Full payload:
+{
+  "receiver": "webhook Alerts",
+  "status": "firing",
+  "alerts": [
+    {
+      "status": "firing",
+      "labels": {
+        "alertname": "Metrics Scraping Test",
+        "endpoint": "/metrics",
+        "grafana_folder": "alerts",
+        "instance": "app:8000",
+        "job": "legal-doc-api",
+        "method": "GET",
+        "status": "200"
+      },
+      "annotations": {},
+      "startsAt": "2025-12-30T20:23:30Z",
+      "endsAt": "0001-01-01T00:00:00Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/ff8ou6zcelipsc/view?orgId=1",
+      "fingerprint": "79f0279dc057d123",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8ou6zcelipsc&matcher=endpoint%3D%2Fmetrics&matcher=instance%3Dapp%3A8000&matcher=job%3Dlegal-doc-api&matcher=method%3DGET&matcher=status%3D200&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": {
+        "A": 1503,
+        "C": 1
+      },
+      "valueString": "[ var='A' labels={__name__=api_requests_total, endpoint=/metrics, instance=app:8000, job=legal-doc-api, method=GET, status=200} value=1503 ], [ var='C' labels={__name__=api_requests_total, endpoint=/metrics, instance=app:8000, job=legal-doc-api, method=GET, status=200} value=1 ]",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "Metrics Scraping Test",
+    "grafana_folder": "alerts"
+  },
+  "commonLabels": {
+    "alertname": "Metrics Scraping Test",
+    "endpoint": "/metrics",
+    "grafana_folder": "alerts",
+    "instance": "app:8000",
+    "job": "legal-doc-api",
+    "method": "GET",
+    "status": "200"
+  },
+  "commonAnnotations": {},
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "{}/{__grafana_autogenerated__=\"true\"}/{__grafana_receiver__=\"webhook Alerts\"}:{alertname=\"Metrics Scraping Test\", grafana_folder=\"alerts\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[FIRING:1] Metrics Scraping Test alerts (/metrics app:8000 legal-doc-api GET 200)",
+  "state": "alerting",
+  "message": "**Firing**\n\nValue: A=1503, C=1\nLabels:\n - alertname = Metrics Scraping Test\n - endpoint = /metrics\n - grafana_folder = alerts\n - instance = app:8000\n - job = legal-doc-api\n - method = GET\n - status = 200\nAnnotations:\nSource: http://localhost:3000/alerting/grafana/ff8ou6zcelipsc/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8ou6zcelipsc&matcher=endpoint%3D%2Fmetrics&matcher=instance%3Dapp%3A8000&matcher=job%3Dlegal-doc-api&matcher=method%3DGET&matcher=status%3D200&orgId=1\n"
+}
+2025-12-31 01:57:27,227 - INFO -    Name: Unknown
+2025-12-31 01:57:27,227 - INFO -    Full payload:
+{
+  "receiver": "webhook Alerts",
+  "status": "resolved",
+  "alerts": [
+    {
+      "status": "resolved",
+      "labels": {
+        "alertname": "DatasourceError",
+        "datasource_uid": "ef8on1yxsvfggb",
+        "grafana_folder": "Default",
+        "ref_id": "A",
+        "rulename": "low RPS simple"
+      },
+      "annotations": {
+        "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url",
+        "grafana_state_reason": "MissingSeries"
+      },
+      "startsAt": "2025-12-30T20:09:30Z",
+      "endsAt": "2025-12-30T20:22:30Z",
+      "generatorURL": "http://localhost:3000/alerting/grafana/ff8otdy1p9hxcf/view?orgId=1",
+      "fingerprint": "74825a325abb548a",
+      "silenceURL": "http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8otdy1p9hxcf&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3Dlow+RPS+simple&orgId=1",
+      "dashboardURL": "",
+      "panelURL": "",
+      "values": null,
+      "valueString": "",
+      "orgId": 1
+    }
+  ],
+  "groupLabels": {
+    "alertname": "DatasourceError",
+    "grafana_folder": "Default"
+  },
+  "commonLabels": {
+    "alertname": "DatasourceError",
+    "datasource_uid": "ef8on1yxsvfggb",
+    "grafana_folder": "Default",
+    "ref_id": "A",
+    "rulename": "low RPS simple"
+  },
+  "commonAnnotations": {
+    "Error": "[sse.dataQueryError] failed to execute query [A]: parse \"\": empty url",
+    "grafana_state_reason": "MissingSeries"
+  },
+  "externalURL": "http://localhost:3000/",
+  "version": "1",
+  "groupKey": "{}/{__grafana_autogenerated__=\"true\"}/{__grafana_receiver__=\"webhook Alerts\"}:{alertname=\"DatasourceError\", grafana_folder=\"Default\"}",
+  "truncatedAlerts": 0,
+  "orgId": 1,
+  "title": "[RESOLVED] DatasourceError Default (ef8on1yxsvfggb A low RPS simple)",
+  "state": "ok",
+  "message": "**Resolved**\n\nValue: [no value]\nLabels:\n - alertname = DatasourceError\n - datasource_uid = ef8on1yxsvfggb\n - grafana_folder = Default\n - ref_id = A\n - rulename = low RPS simple\nAnnotations:\n - Error = [sse.dataQueryError] failed to execute query [A]: parse \"\": empty url\n - grafana_state_reason = MissingSeries\nSource: http://localhost:3000/alerting/grafana/ff8otdy1p9hxcf/view?orgId=1\nSilence: http://localhost:3000/alerting/silence/new?alertmanager=grafana&matcher=__alert_rule_uid__%3Dff8otdy1p9hxcf&matcher=datasource_uid%3Def8on1yxsvfggb&matcher=ref_id%3DA&matcher=rulename%3Dlow+RPS+simple&orgId=1\n"
+}

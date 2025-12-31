@@ -1,0 +1,50 @@
+SOFTWARE LICENSE AND DATA PROCESSING AGREEMENT
+Last updated: 01 January 2025
+
+THIS SOFTWARE LICENSE AND DATA PROCESSING AGREEMENT ("Agreement") is entered into between:
+
+(1) ABC TECHNOLOGIES PRIVATE LIMITED, a company incorporated under the laws of India, having its registered office at New Delhi ("Licensor"); and
+(2) XYZ ANALYTICS PRIVATE LIMITED, a company incorporated under the laws of India, having its registered office at Bengaluru ("Licensee").
+
+1. DEFINITIONS
+1.1 "Confidential Information" means any non-public information disclosed by one Party to the other Party, whether orally or in writing, that is designated as confidential or should reasonably be understood to be confidential.
+1.2 "Personal Data", "Controller", "Processor" and "Processing" shall have the meanings given under applicable data protection laws.
+1.3 "Software" means the object code version of the ABC Data Insights Platform.
+
+2. LICENSE GRANT
+2.1 Subject to Licensee's compliance with this Agreement and payment of all applicable fees, Licensor grants to Licensee a non-exclusive, non-transferable, limited license to install and use the Software.
+2.2 Licensee shall not: (a) copy, modify or create derivative works; (b) reverse engineer or decompile; (c) rent, lease, sublicense or distribute the Software.
+
+3. FEES AND PAYMENT TERMS
+3.1 Licensee shall pay to Licensor the license fees set out in the applicable order form.
+3.2 All fees are exclusive of applicable taxes and non-refundable except as expressly provided.
+3.3 If Licensee fails to make payment when due, Licensor may charge interest at 1.5% per month or suspend access.
+
+4. CONFIDENTIALITY
+4.1 Each Party shall keep Confidential Information strictly confidential and not disclose it to third parties without prior written consent.
+4.2 Confidentiality obligations shall not apply to information that is publicly available or independently developed.
+
+5. DATA PROCESSING
+5.1 Licensor Processes Personal Data on behalf of Licensee, where Licensee acts as Controller and Licensor as Processor.
+5.2 Licensor shall implement appropriate technical and organisational measures to protect Personal Data against unauthorised access or loss.
+
+6. SECURITY INCIDENTS
+6.1 Licensor shall notify Licensee without undue delay after becoming aware of a Personal Data breach.
+6.2 Notice shall include the nature of breach, categories of data subjects, and measures taken.
+
+7. TERMINATION
+7.1 This Agreement shall continue until terminated in accordance with this clause.
+7.2 Either Party may terminate with thirty (30) days' written notice for material breach not remedied within such period.
+7.3 Upon termination, all licences cease and Licensee shall return the Software and Confidential Information.
+
+8. GOVERNING LAW
+8.1 This Agreement shall be governed by and construed in accordance with the laws of India.
+8.2 The courts of New Delhi, India shall have exclusive jurisdiction over any disputes.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement on the Effective Date.
+
+Licensor: ABC TECHNOLOGIES PRIVATE LIMITED
+Authorized Signatory: ______________________
+
+Licensee: XYZ ANALYTICS PRIVATE LIMITED
+Authorized Signatory: ______________________

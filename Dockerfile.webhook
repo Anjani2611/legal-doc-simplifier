@@ -1,0 +1,13 @@
+# Dockerfile.webhook
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy the server script
+COPY webhook_server.py .
+
+# Create a directory for logs
+RUN mkdir logs
+
+# Run unbuffered (-u) so logs appear instantly in Docker logs
+CMD ["python", "-u", "webhook_server.py"]

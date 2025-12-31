@@ -1,0 +1,79 @@
+EMPLOYMENT AGREEMENT
+THIS EMPLOYMENT AGREEMENT (“Agreement”) is made on 01 January 2025 between:
+
+ABC TECHNOLOGIES PRIVATE LIMITED, a company incorporated under the laws of India and having its registered office at New Delhi (“Employer”); and
+
+Mr. Rahul Sharma, residing at New Delhi (“Employee”).
+
+The Employer and the Employee are together referred to as the “Parties” and individually as a “Party”.
+
+APPOINTMENT AND POSITION
+1.1 The Employer appoints the Employee as “Software Engineer - Backend” on a full-time basis, and the Employee accepts such appointment on the terms and conditions set out in this Agreement.
+1.2 The Employee shall report to the Engineering Manager or such other person as the Employer may notify from time to time.
+1.3 The Employee shall perform such duties and responsibilities as are customarily associated with the position and as may reasonably be assigned by the Employer from time to time.
+
+PLACE OF WORK
+2.1 The primary place of work shall be the Employer’s office in New Delhi, India.
+2.2 The Employee may be required to work from home or from any other location as reasonably instructed by the Employer, subject to applicable law.
+
+TERM OF EMPLOYMENT
+3.1 This Agreement shall commence on 15 January 2025 (“Start Date”) and shall continue until terminated in accordance with Clause 8 of this Agreement.
+3.2 The first three (3) months of employment shall be a probationary period (“Probation Period”).
+
+WORKING HOURS
+4.1 The normal working hours shall be forty (40) hours per week, Monday to Friday, excluding public holidays.
+4.2 The Employee may be required to work reasonable additional hours as may be necessary for the proper performance of duties. No separate overtime shall be payable unless required by applicable law.
+
+SALARY AND BENEFITS
+5.1 The Employee shall be paid a gross annual salary of INR 12,00,000 (Indian Rupees Twelve Lakhs only), payable in twelve (12) equal monthly instalments, subject to applicable deductions.
+5.2 The Employee shall be eligible for performance-based bonuses, if any, as per the Employer’s policies in force from time to time.
+5.3 The Employee shall be entitled to such benefits (including medical insurance, provident fund, etc.) as the Employer may offer to employees in similar positions, subject to the terms of the relevant policies.
+
+LEAVE
+6.1 The Employee shall be entitled to annual leave, sick leave and other leave as per the Employer’s leave policy and applicable law.
+6.2 Leave shall be taken at times approved in advance by the Employer, except in cases of genuine emergency or illness.
+
+CONFIDENTIALITY
+7.1 The Employee acknowledges that during the course of employment, the Employee will have access to confidential information relating to the Employer, its clients, products, technology and business.
+7.2 The Employee agrees that, both during the term of employment and after termination, the Employee shall:
+(a) keep all Confidential Information strictly confidential;
+(b) not disclose Confidential Information to any third party without the Employer’s prior written consent; and
+(c) not use Confidential Information for any purpose other than for the proper performance of duties for the Employer.
+7.3 “Confidential Information” includes, without limitation, source code, technical documentation, business plans, pricing, client data, trade secrets and any other information marked or reasonably understood to be confidential.
+
+TERMINATION
+8.1 During the Probation Period, either Party may terminate this Agreement by giving seven (7) days’ written notice or payment in lieu of such notice.
+8.2 After completion of the Probation Period, either Party may terminate this Agreement by giving thirty (30) days’ written notice or payment in lieu of such notice.
+8.3 The Employer may terminate this Agreement with immediate effect, without notice or payment in lieu of notice, if the Employee:
+(a) commits any act of gross misconduct or serious negligence;
+(b) is found guilty of fraud, dishonesty or breach of trust; or
+(c) materially breaches any provision of this Agreement which, if capable of remedy, is not remedied within seven (7) days after written notice.
+8.4 Upon termination, the Employee shall immediately:
+(a) return all property, devices, documents and materials belonging to the Employer; and
+(b) cease to represent in any manner that the Employee is associated with the Employer.
+
+INTELLECTUAL PROPERTY
+9.1 All intellectual property, including but not limited to inventions, software, source code, designs, documentation and other works, created by the Employee in the course of employment and relating to the Employer’s business (“Work Product”) shall be the exclusive property of the Employer.
+9.2 The Employee hereby assigns to the Employer all rights, title and interest in and to any such Work Product and agrees to execute any documents reasonably required to perfect such assignment.
+
+NON-SOLICITATION
+10.1 During the term of employment and for a period of six (6) months after termination, the Employee shall not, directly or indirectly, solicit or attempt to solicit:
+(a) any employee of the Employer to leave their employment; or
+(b) any client or customer of the Employer to cease or reduce its business relationship with the Employer.
+
+DATA PROTECTION
+11.1 The Employee agrees to comply with all applicable data protection laws and the Employer’s data protection policies when handling personal data of clients, employees or other individuals.
+11.2 The Employee shall promptly report any suspected data breach or unauthorised disclosure of personal data to the Employer.
+
+GOVERNING LAW AND JURISDICTION
+12.1 This Agreement shall be governed by and construed in accordance with the laws of India.
+12.2 The courts of New Delhi, India shall have exclusive jurisdiction over any disputes arising out of or in connection with this Agreement.
+
+IN WITNESS WHEREOF, the Parties have executed this Agreement on the date first written above.
+
+Employer: ABC TECHNOLOGIES PRIVATE LIMITED
+Authorized Signatory: ______________________
+
+Employee: Rahul Sharma
+Signature: ________________________________
+

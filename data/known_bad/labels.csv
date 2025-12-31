@@ -1,0 +1,21 @@
+id,tag,short_comment,created_at
+doc_001,too_long,output truncated after arbitration clause,2025-12-31T08:53:13.008241
+doc_002,too_technical,did not simplify indemnity clause,2025-12-31T08:54:17.413110
+doc_003,struct_lost,lost numbering in section 4,2025-12-31T08:54:55.195124
+doc_004,hallucination,added fake termination clause,2025-12-31T08:55:58.910038
+doc_005,too_long,stopped mid-way in termination section,2025-12-31T08:57:09.989170
+doc_006,too_long,summary ends before dispute resolution clause,2025-12-31T08:57:38.890102
+doc_007,too_long,missed last 3 pages of ToS,2025-12-31T08:58:27.942076
+doc_008,too_long,"only covered sections 1–4, skipped rest",2025-12-31T08:59:22.505308
+doc_009,too_technical,kept Latin terms like force majeure untranslated,2025-12-31T09:00:00.360253
+doc_010,too_technical,indemnity clause still pure legalese,2025-12-31T09:00:33.370731
+doc_011,too_technical,privacy policy still uses GDPR jargon,2025-12-31T09:01:12.749576
+doc_012,too_technical,lease agreement rights not in plain English,2025-12-31T09:01:54.590446
+doc_013,struct_lost,"removed numbering 3.1,3.2 and merged",2025-12-31T09:02:32.929114
+doc_014,struct_lost,sub-clauses (a)(b)(c) merged into one blob,2025-12-31T09:03:08.564427
+doc_015,struct_lost,annexure references dropped from output,2025-12-31T09:03:49.603776
+doc_016,struct_lost,"sections 5 and 6 combined, headings lost",2025-12-31T09:04:39.502527
+doc_017,hallucination,"added penalty clause not present in original",2025-12-31T09:05:25.021406
+doc_018,hallucination,invented new 60-day notice period,2025-12-31T09:09:38.806037
+doc_019,hallucination,added extra party to agreement,2025-12-31T09:10:04.896462
+doc_020,hallucination,mentioned court case that document never cites,2025-12-31T09:10:34.464991

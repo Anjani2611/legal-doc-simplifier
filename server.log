@@ -1,0 +1,4 @@
+INFO:     Will watch for changes in these directories: ['C:\\Users\\Hp\\legal-doc-simplifier']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [16972] using WatchFiles
+ERROR:    Error loading ASGI app. Attribute "src" not found in module "src.main".

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  app:
+    image: legal-doc-simplifier:latest
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=anjani@11!!
+    networks:
+      - app-network
+
+  alert-webhook:
+    build:
+      context: .
+      dockerfile: Dockerfile.webhook
+    container_name: legal-doc-webhook
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge

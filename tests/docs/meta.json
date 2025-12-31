@@ -1,0 +1,14 @@
+{
+  "doc1_short_contract_raw.txt": {
+    "style": "simple Hindi + English mix, bullet points, clause numbering preserved, koi naya clause nahi",
+    "max_words_per_clause": 80
+  },
+  "doc2_tos_raw.txt": {
+    "style": "plain Hindi paragraphs, headings intact, examples allowed",
+    "max_words_per_clause": 120
+  },
+  "doc3_long_1_raw.txt": {
+    "style": "plain Hindi summary, sirf important clauses, numbering mention but nested details optional",
+    "max_words_per_clause": 100
+  }
+}
