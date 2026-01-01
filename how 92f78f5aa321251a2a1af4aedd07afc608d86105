@@ -1,0 +1,56 @@
+[33mcommit d9ef58f38b28f51077ec77340af8a3f1e5367264[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Anjani2611 <anjanikty980@gmail.com>
+Date:   Fri Dec 26 03:13:29 2025 +0530
+
+    feat: add caching, async tasks and monitoring
+    
+    - Implement SimpleCache and cached /documents listing
+    - Add Celery-based background simplification and task status
+    - Integrate webhooks, Prometheus metrics and API versioning
+    - Document deployment steps and Docker setup
+
+[33mcommit f9c957d3f6a02c25eba41387c8eb520b73ae0d7a[m
+Author: Anjani2611 <anjanikty980@gmail.com>
+Date:   Fri Dec 26 02:02:52 2025 +0530
+
+    feat: add rate limiting and stabilize text simplification
+    
+    - Integrate SlowAPI-based rate limiting for FastAPI routes
+    - Fix request body handling in /simplify/text endpoint
+    - Update config, database, and main app wiring
+    - Refresh requirements and add migration for new indexes
+
+[33mcommit 92f78f5aa321251a2a1af4aedd07afc608d86105[m
+Author: Anjani2611 <anjanikty980@gmail.com>
+Date:   Thu Dec 25 22:55:11 2025 +0530
+
+    chore: add documentation and test suite
+    
+    - Comprehensive README with setup, usage, and API documentation
+    - Integration test suite for all endpoints
+    - Updated requirements.txt with all dependencies
+    - Project structure and troubleshooting guide
+
+[33mcommit ffa720089e6b20866551af57b94f558b5f80bbc3[m
+Author: Anjani2611 <anjanikty980@gmail.com>
+Date:   Thu Dec 25 22:25:35 2025 +0530
+
+    feat: add risk detection and analysis pipeline
+    
+    - Implement pattern-based risk detector for legal documents
+    - Detect liability, indemnification, termination, confidentiality issues
+    - Calculate risk scores and provide mitigation recommendations
+    - Add /analyze/document/{id} endpoint
+    - Store detected risks in database with RiskFlag model
+
+[33mcommit b75371c2d6a0e4f9bcd8157ea4f7ccca925fc5d4[m
+Author: Anjani2611 <anjanikty980@gmail.com>
+Date:   Thu Dec 25 22:16:53 2025 +0530
+
+    feat: add document upload and extraction pipeline
+    
+    - Implement /documents/upload endpoint with file validation
+    - Support TXT/PDF/DOCX formats using PyPDF2 and python-docx
+    - Extract text into original_text field and store metadata
+    - Add uploads directory config and limits in settings
+    - Update document listing and delete endpoints

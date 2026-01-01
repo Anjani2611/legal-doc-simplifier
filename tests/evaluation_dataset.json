@@ -1,0 +1,73 @@
+{
+  "evaluation_cases": [
+    {
+      "id": "termination_001",
+      "category": "Termination",
+      "original": "Either party may terminate this Agreement upon thirty (30) days prior written notice to the other party. Notwithstanding the foregoing, either party may terminate this Agreement immediately upon written notice if the other party materially breaches any provision of this Agreement and fails to cure such breach within fifteen (15) days after receiving written notice of the breach.",
+      "expected_elements": [
+        "terminate",
+        "30 days",
+        "written notice",
+        "immediately",
+        "breach",
+        "15 days"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "confidentiality_001",
+      "category": "Confidentiality",
+      "original": "Both parties agree to keep confidential all non-public, proprietary, or confidential information disclosed by the other party in connection with this Agreement, and to use such information solely for the purpose of performing their obligations hereunder.",
+      "expected_elements": [
+        "confidential",
+        "information",
+        "keep secret",
+        "disclosed"
+      ],
+      "difficulty": "easy"
+    },
+    {
+      "id": "liability_001",
+      "category": "Limitation of Liability",
+      "original": "To the maximum extent permitted by applicable law, in no event shall either party be liable to the other for any indirect, incidental, special, consequential, or punitive damages, including loss of profits or revenue, arising out of or relating to this Agreement, even if advised of the possibility of such damages.",
+      "expected_elements": [
+        "not liable",
+        "damages",
+        "loss of profits",
+        "indirect",
+        "legal limit"
+      ],
+      "difficulty": "hard"
+    },
+    {
+      "id": "privacy_001",
+      "category": "Privacy / Data",
+      "original": "We collect and process personal data, including your name, contact details, and usage information, for the purposes of providing and improving our Services, complying with legal obligations, and protecting our legitimate business interests.",
+      "expected_elements": [
+        "collect data",
+        "personal information",
+        "Services",
+        "legal"
+      ],
+      "difficulty": "medium"
+    },
+    {
+      "id": "warranty_001",
+      "category": "Warranties",
+      "original": "Provider warrants that the Services will be performed in a professional and workmanlike manner consistent with industry standards and best practices, and that any deliverables will be free from material defects.",
+      "expected_elements": [
+        "warrant",
+        "professional",
+        "Services",
+        "defects",
+        "industry standards"
+      ],
+      "difficulty": "medium"
+    }
+  ],
+  "evaluation_metrics": {
+    "target_reduction_percent": 30,
+    "min_readability_improvement": 15,
+    "key_elements_preservation": 0.8
+  }
+}

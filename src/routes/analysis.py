@@ -1,21 +1,28 @@
 """Document analysis endpoints (risk detection, metrics, etc.)"""
 
-from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
-from sqlalchemy.orm import Session
 import logging
+import time
 from typing import List, Optional
 
+from fastapi import APIRouter, HTTPException, Depends, Request
+from pydantic import BaseModel
+from sqlalchemy.orm import Session
+
+from src.middleware import limiter
 from src.database import get_db
 from src.models.document import Document, RiskFlag
 from src.pipelines import get_risk_detector
+from src.monitoring.metrics import (
+    record_document_operation,
+    record_analysis,
+)
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/analyze", tags=["analysis"])
 
 
 class RiskItem(BaseModel):
-    """Single risk detection result"""
+    """Single risk detection result."""
     risk_level: str
     risk_score: int
     description: str
@@ -23,7 +30,7 @@ class RiskItem(BaseModel):
 
 
 class AnalysisResponse(BaseModel):
-    """Analysis response for a document"""
+    """Analysis response for a document."""
     document_id: int
     filename: str
     text_length: int
@@ -34,26 +41,33 @@ class AnalysisResponse(BaseModel):
 
 
 @router.post("/document/{document_id}", response_model=AnalysisResponse)
+@limiter.limit("20/minute")  # ML-heavy analysis
 async def analyze_document(
+    request: Request,
     document_id: int,
     db: Session = Depends(get_db),
-):
-    """Analyze document for risks"""
+) -> AnalysisResponse:
+    """Analyze document for risks."""
+    start_time = time.time()
+
     try:
         # Get document
         doc = db.query(Document).filter(Document.id == document_id).first()
         if not doc:
             raise HTTPException(status_code=404, detail="Document not found")
-        
+
         # Run risk detection
         detector = get_risk_detector()
         detected_risks = detector.detect_risks(doc.original_text)
-        
-        # Save risks to database
-        existing_risks = db.query(RiskFlag).filter(RiskFlag.document_id == document_id).all()
+
+        # Remove existing risks for this document
+        existing_risks = (
+            db.query(RiskFlag).filter(RiskFlag.document_id == document_id).all()
+        )
         for risk in existing_risks:
             db.delete(risk)
-        
+
+        # Insert new risks
         for risk in detected_risks:
             risk_flag = RiskFlag(
                 document_id=document_id,
@@ -64,16 +78,23 @@ async def analyze_document(
                 recommendation=risk["recommendation"],
             )
             db.add(risk_flag)
-        
+
         db.commit()
-        
+
         # Calculate stats
         word_count = len(doc.original_text.split())
         avg_risk_score = (
             sum(r["risk_score"] for r in detected_risks) / len(detected_risks)
-            if detected_risks else 0
+            if detected_risks
+            else 0
         )
-        
+
+        duration = time.time() - start_time
+
+        # Metrics: document analyze operation + analysis duration
+        record_document_operation("analyze")
+        record_analysis(duration=duration, analysis_type="risk_detection")
+
         return AnalysisResponse(
             document_id=doc.id,
             filename=doc.filename,
@@ -83,29 +104,31 @@ async def analyze_document(
             risks=[RiskItem(**r) for r in detected_risks],
             avg_risk_score=round(avg_risk_score, 2),
         )
-    
+
     except HTTPException:
         raise
-    except Exception as e:
-        logger.error(f"Analysis failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as exc:
+        logger.error(f"Analysis failed: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))
 
 
 @router.get("/document/{document_id}/risks")
+@limiter.limit("60/minute")
 async def get_document_risks(
+    request: Request,
     document_id: int,
     risk_level: Optional[str] = None,
     db: Session = Depends(get_db),
 ):
-    """Get detected risks for a document"""
+    """Get detected risks for a document."""
     try:
         query = db.query(RiskFlag).filter(RiskFlag.document_id == document_id)
-        
+
         if risk_level:
             query = query.filter(RiskFlag.risk_level == risk_level.upper())
-        
+
         risks = query.all()
-        
+
         return {
             "document_id": document_id,
             "total_risks": len(risks),
@@ -120,7 +143,7 @@ async def get_document_risks(
                 for r in risks
             ],
         }
-    
-    except Exception as e:
-        logger.error(f"Get risks failed: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+
+    except Exception as exc:
+        logger.error(f"Get risks failed: {exc}")
+        raise HTTPException(status_code=500, detail=str(exc))

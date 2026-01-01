@@ -1,3 +1,11 @@
 venv/
 uploads/
 
+.env
+.env
+__pycache__/
+*.py[cod]
+*.pyc
+.coverage__pycache__/
+*.pyc
+tests/outputs/

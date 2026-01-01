@@ -1,32 +1,24 @@
-"""Database connection and session management"""
-
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
-from typing import Generator
+from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.pool import QueuePool
+from src.config import settings
 
-from src.settings import settings
+DATABASE_URL = settings.database_url
 
-# Create database engine
 engine = create_engine(
-    settings.database_url,
-    echo=settings.debug,  # Log SQL queries in debug mode
-    pool_pre_ping=True,   # Test connections before using them
+    DATABASE_URL,
+    poolclass=QueuePool,
+    pool_size=5,
+    max_overflow=10,
+    pool_pre_ping=True,
+    pool_recycle=3600,
 )
 
-# Create session factory
-SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine,
-)
-
-# Base class for all models
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-def get_db() -> Generator[Session, None, None]:
-    """Dependency injection for database sessions in FastAPI"""
+def get_db():
     db = SessionLocal()
     try:
         yield db

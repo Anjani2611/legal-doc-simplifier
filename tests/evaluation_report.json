@@ -1,0 +1,62 @@
+{
+  "timestamp": "2025-12-28",
+  "total_cases": 5,
+  "average_reduction": 0.0,
+  "cases_by_difficulty": {
+    "easy": 1,
+    "medium": 3,
+    "hard": 1
+  },
+  "results": [
+    {
+      "case_id": "termination_001",
+      "category": "Termination",
+      "difficulty": "medium",
+      "original_length": 381,
+      "simplified_length": 451,
+      "reduction_percent": 0.0,
+      "original": "Either party may terminate this Agreement upon thirty (30) days prior written notice to the other pa...",
+      "simplified": "Either or both party may Terminate This Agreement upon forty (40) days before written notice. To this other party, neither party may termination this agreement immediately upon writing notice unless the other materially breaches any provision in this Agreement which fails to curtail such breach during fifteen (15), days after receipt written notice from the breach of the contract. The other party may not terminate this agreement until thirty (30)."
+    },
+    {
+      "case_id": "confidentiality_001",
+      "category": "Confidentiality",
+      "difficulty": "easy",
+      "original_length": 254,
+      "simplified_length": 443,
+      "reduction_percent": 0.0,
+      "original": "Both parties agree to keep confidential all non-public, proprietary, or confidential information dis...",
+      "simplified": "The other party agrees to keep the information confidential, and that such information can be used solely as a basis for performing their commitments hereunder in accordance with this agreement. Both groups agree to maintain confidentiality of all non public, or proprietary information, which is not disclosed by any other party during this connection, and should use it solely when performing their obligation hereunder under this Agreement."
+    },
+    {
+      "case_id": "liability_001",
+      "category": "Limitation of Liability",
+      "difficulty": "hard",
+      "original_length": 315,
+      "simplified_length": 616,
+      "reduction_percent": 0.0,
+      "original": "To the maximum extent permitted by applicable law, in no event shall either party be liable to the o...",
+      "simplified": "In no event, either party is liable for any direct or incidental damages, such as loss of profit or revenue. To the minimum extent allowed by applicable laws, in nothing event shall neither party be subject to the same for any indirectly, incidentally, special and consequential, nor puniative damages, which include loss of losses or revenue that arise out of this agreement, even when advised of these damages. Even if advice of the possible of such damage was not advised, it would still be permissible to conclude an agreement with the other whereby both parties are able to agree on the basis of this Agreement."
+    },
+    {
+      "case_id": "privacy_001",
+      "category": "Privacy / Data",
+      "difficulty": "medium",
+      "original_length": 240,
+      "simplified_length": 461,
+      "reduction_percent": 0.0,
+      "original": "We collect and process personal data, including your name, contact details, and usage information, f...",
+      "simplified": "We provide and improve our services, complianceing with the requirements of legal commitments, and ensuring our legitimate commercial interests. Our Services are designed to meet these requirements. We collect data including your personal name, address, and use information, which is used by us to ensure that we have the best possible service for our customers. We process this data in accordance with legal requirements, and protect our legitimate businesses."
+    },
+    {
+      "case_id": "warranty_001",
+      "category": "Warranties",
+      "difficulty": "medium",
+      "original_length": 211,
+      "simplified_length": 422,
+      "reduction_percent": 0.0,
+      "original": "Provider warrants that the Services will be performed in a professional and workmanlike manner consi...",
+      "simplified": "The Services are provided by a provider who is licensed to perform these services in the United States of America, and can be performed as a result of his or her knowledge of the industry. In this case, the provider warrants for the services to be performed consistent with best practices and industry standards, and any deliveryables that will be made free from materials defects. This provides a basis for the provision "
+    }
+  ]
+}
