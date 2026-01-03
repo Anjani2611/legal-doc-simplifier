@@ -1,0 +1,36 @@
+{
+  "id": "termination_003",
+  "clause_type": "termination",
+  "original_text": "Upon expiration or termination of this Agreement for any reason, all rights and licenses granted to Licensee shall immediately cease, and Licensee shall immediately discontinue all use of the Licensed Software and return all copies to Licensor. Termination shall not relieve Licensee of its obligation to pay any fees accrued or payable to Licensor prior to the effective date of termination.",
+  "gold_simplification": "When this agreement ends, the Licensee must immediately stop using the software, stop all rights to use it, and return all copies to the Licensor. Ending the agreement does NOT cancel the Licensee's obligation to pay any fees that were already due before termination.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Licensee",
+        "role": "obligor"
+      },
+      {
+        "text": "Licensor",
+        "role": "benificiary"
+      }
+    ],
+    "obligations": [
+      "cease all use",
+      "discontinue use",
+      "return all copies",
+      "pay accrued fees"
+    ],
+    "coverage": [
+      "Licensed Software",
+      "copies"
+    ],
+    "exceptions": [],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "All rights and licenses cease immediately upon termination",
+    "Licensee must stop use and return software",
+    "Payment obligations for accrued fees survive termination"
+  ]
+}

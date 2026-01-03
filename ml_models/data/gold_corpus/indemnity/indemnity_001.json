@@ -1,0 +1,41 @@
+{
+  "id": "indemnity_001",
+  "clause_type": "indemnity",
+  "original_text": "The Indemnifying Party shall defend, indemnify and hold harmless the Indemnified Party from any and all claims, damages, losses, liabilities, costs and expenses (including reasonable attorneys' fees) arising from the acts, omissions or negligence of the Indemnifying Party in the performance of services under this Agreement, except to the extent caused by the gross negligence or willful misconduct of the Indemnified Party.",
+  "gold_simplification": "Party A must protect Party B from legal claims and pay all related costs (including lawyer fees) if those claims arise from Party A's actions, mistakes, or carelessness while doing the agreed work. However, Party A does NOT have to protect Party B if the claims are caused by Party B's own serious negligence or intentional wrongdoing.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Indemnifying Party",
+        "role": "obligor"
+      },
+      {
+        "text": "Indemnified Party",
+        "role": "beneficiary"
+      }
+    ],
+    "obligations": [
+      "defend",
+      "indemnity",
+      "hold harmless"
+    ],
+    "coverage": [
+      "claims",
+      "damages",
+      "losses",
+      "costs",
+      "attorneys fees"
+    ],
+    "exceptions": [
+      "gross negligence of Indemnified Party",
+      "willful misconduct of Indemnified Party"
+    ],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Indemnifying Party must protect Indemnified Party from claims",
+    "Covers claims arising from Indemnifying Party's negligence",
+    "Exception for Indemnified Party's gross negligence or willful misconduct"
+  ]
+}

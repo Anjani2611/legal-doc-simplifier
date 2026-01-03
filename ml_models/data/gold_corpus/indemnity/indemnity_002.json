@@ -1,0 +1,42 @@
+{
+  "id": "indemnity_002",
+  "clause_type": "indemnity",
+  "original_text": "Provider shall indemnify, defend and hold Customer harmless from and against any and all losses, damages, liabilities, costs (including reasonable attorneys' fees) (\"Losses\") incurred by Customer resulting from any third-party claim, suit, action or proceeding (\"Third-Party Claim\") that the Services, or any use of the Services in accordance with this Agreement, infringes or misappropriates such third party's intellectual property rights, provided that Customer promptly notifies Provider in writing of the claim, cooperates with Provider, and allows Provider sole authority to control the defense and settlement of such claim.",
+  "gold_simplification": "The Provider will protect the Customer and pay all costs (including lawyer fees) if a third party sues the Customer claiming that the Provider's Services violate their intellectual property rights. However, the Customer must notify the Provider immediately about any lawsuit, cooperate with the Provider's defense, and allow the Provider to fully control how the case is defended or settled.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Provider",
+        "role": "obligor"
+      },
+      {
+        "text": "Customer",
+        "role": "beneficiary"
+      },
+      {
+        "text": "third party",
+        "role": "third-party"
+      }
+    ],
+    "obligations": [
+      "indemnify",
+      "defend",
+      "hold harmless"
+    ],
+    "coverage": [
+      "losses",
+      "damages",
+      "liabilities",
+      "costs",
+      "attorneys fees"
+    ],
+    "exceptions": [],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Provider must protect Customer from third-party IP infringement claims",
+    "Customer must notify Provider promptly about claims",
+    "Customer must cooperate and allow Provider sole control of defense"
+  ]
+}

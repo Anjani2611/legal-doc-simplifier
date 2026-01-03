@@ -1,0 +1,30 @@
+{
+  "id": "termination_001",
+  "clause_type": "termination",
+  "original_text": "Either party may terminate this Agreement upon thirty (30) days' written notice to the other party. Upon termination, each party shall return or destroy all Confidential Information received from the other party. Sections 3, 5, and 7 shall survive any termination or expiration of this Agreement.",
+  "gold_simplification": "Both parties can end this agreement by giving written notice 30 days in advance. When the agreement ends, each party must return or destroy all confidential information they received. Certain sections (3, 5, and 7) remain valid even after the agreement is terminated.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Either party",
+        "role": "general"
+      }
+    ],
+    "obligations": [
+      "termination upon notice",
+      "return Confidential information",
+      "destroy Confidential information"
+    ],
+    "coverage": [
+      "Confidential Information received"
+    ],
+    "exceptions": [],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Either party can terminate with 30 days written notice",
+    "All Confidential Information must be returned or destroyed upon termination",
+    "Sections 3, 5, and 7 survive termination"
+  ]
+}

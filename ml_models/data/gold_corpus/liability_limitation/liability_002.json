@@ -1,0 +1,40 @@
+{
+  "id": "liability_002",
+  "clause_type": "liability_limitation",
+  "original_text": "EXCEPT FOR A PARTY'S INDEMNIFICATION OBLIGATIONS OR BREACH OF CONFIDENTIALITY, NEITHER PARTY WILL BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION DAMAGES FOR LOST PROFITS OR REVENUES, BUSINESS INTERRUPTION, OR LOSS OF BUSINESS INFORMATION, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.",
+  "gold_simplification": "NEITHER PARTY WILL BE RESPONSIBLE FOR INDIRECT DAMAGES like lost profits, lost revenue, business interruption, or lost data, even if they were warned this could happen. The only exceptions are for breaking confidentiality obligations or indemnification promises.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Neither Party",
+        "role": "general"
+      }
+    ],
+    "obligations": [
+      "exclude liability for indirect damages",
+      "exclude liability for consequential damages"
+    ],
+    "coverage": [
+      "indirect damages",
+      "incidental damages",
+      "special damages",
+      "consequential damages",
+      "punitive damages",
+      "lost profits",
+      "lost revenues",
+      "business interruption",
+      "loss of business information"
+    ],
+    "exceptions": [
+      "indemnification obligations",
+      "breach of confidentiality"
+    ],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "No liability for indirect, consequential, or punitive damages",
+    "Includes lost profits, revenues, business interruption, lost data",
+    "Exceptions: indemnification and confidentiality breaches"
+  ]
+}

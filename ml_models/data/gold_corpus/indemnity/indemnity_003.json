@@ -1,0 +1,39 @@
+{
+  "id": "indemnity_003",
+  "clause_type": "indemnity",
+  "original_text": "Each Party (the \"Indemnifying Party\") agrees to indemnify, defend, and hold harmless the other Party and its officers, directors, employees, and agents (the \"Indemnified Parties\") from and against any and all third-party claims, demands, losses, liabilities, and expenses (including reasonable legal fees) arising out of or relating to: (a) the Indemnifying Party's gross negligence or willful misconduct; or (b) the Indemnifying Party's material breach of its representations and warranties under this Agreement.",
+  "gold_simplification": "Both parties agree to protect each other and pay all costs (including legal fees) if a third party makes a claim against the other party due to: (1) serious negligence or intentional wrongdoing, or (2) breaking the promises and guarantees made in this agreement.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Indemnifying Party",
+        "role": "obligor"
+      },
+      {
+        "text": "Indemnified Parties",
+        "role": "beneficiary"
+      }
+    ],
+    "obligations": [
+      "indemnify",
+      "defend",
+      "hold harmless"
+    ],
+    "coverage": [
+      "claims",
+      "demands",
+      "losses",
+      "liabilities",
+      "expenses",
+      "legal fees"
+    ],
+    "exceptions": [],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Mutual indemnification (both parties protect each other)",
+    "Covers gross negligence or willful misconduct",
+    "Covers material breach of representations and warranties"
+  ]
+}

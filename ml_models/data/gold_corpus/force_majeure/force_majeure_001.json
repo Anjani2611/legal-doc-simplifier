@@ -1,0 +1,38 @@
+{
+  "id": "force_majeure_001",
+  "clause_type": "force_majeure",
+  "original_text": "Neither Party shall be liable for any failure or delay in performance under this Agreement (other than for delay in the payment of money due and payable hereunder) to the extent said failures or delays are proximately caused by acts of God, government restrictions, wars, insurrections, fires, floods, storms, epidemics, or other causes beyond the reasonable control of such Party and to which it did not contribute.",
+  "gold_simplification": "Neither party is responsible for delays or failures caused by events outside their control, such as natural disasters, government actions, wars, fires, floods, or epidemics. However, this does NOT excuse late payment of money that is owed.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Neither Party",
+        "role": "general"
+      }
+    ],
+    "obligations": [
+      "not liable for failure or delay"
+    ],
+    "coverage": [
+      "acts of god",
+      "government restrictions",
+      "wars",
+      "insurrection",
+      "fires",
+      "floods",
+      "stroms",
+      "epidemics",
+      "causes beyond reasonable control"
+    ],
+    "exceptions": [
+      "delay in payment of money"
+    ],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "No liability for events beyond reasonable control",
+    "Covers natural disasters, government acts, wars, epidemics",
+    "Exception: payment obligations are NOT excused"
+  ]
+}

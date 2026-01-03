@@ -1,0 +1,45 @@
+{
+  "id": "indemnity_004",
+  "clause_type": "indemnity",
+  "original_text": "Seller agrees to indemnify and save Buyer harmless from any and all judgments, orders, decrees, awards, costs, expenses, including attorney's fees and settlements, and claims on account of damage to property or bodily injury (including death) which may be sustained by Buyer, Buyer's employees, or third parties, arising out of or in connection with any defect in the Goods sold hereunder or the use thereof, except to the extent caused by Buyer's negligence.",
+  "gold_simplification": "The Seller will protect the Buyer and pay all costs, judgments, and settlements if the Buyer, its employees, or anyone else is injured or suffers property damage due to defects in the products sold. However, the Seller is NOT responsible if the damage was caused by the Buyer's own negligence.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Seller",
+        "role": "obligor"
+      },
+      {
+        "text": "Buyer",
+        "role": "beneficiary"
+      }
+    ],
+    "obligations": [
+      "indemnify",
+      "save harmless"
+    ],
+    "coverage": [
+      "judgements",
+      "orders",
+      "decrees",
+      "awards",
+      "costs",
+      "expenses",
+      "attorney's fees",
+      "settlements",
+      "demand to property",
+      "bodily injury",
+      "death"
+    ],
+    "exceptions": [
+      "caused by buyer's negligence"
+    ],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Seller indemnifies for injury or property damage from defective Goods",
+    "Covers Buyer, Buyer's employees, and third parties",
+    "Exception when caused by Buyer's negligence"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "dispute_001",
+  "clause_type": "dispute_resolution",
+  "original_text": "This Agreement shall be governed by the laws of India. Any dispute arising out of or in connection with this Agreement, including any question regarding its existence, validity or termination, shall be referred to and finally resolved by arbitration in New Delhi in accordance with the Arbitration and Conciliation Act, 1996. The tribunal shall consist of a sole arbitrator appointed by mutual agreement of the Parties. The language of the arbitration shall be English.",
+  "gold_simplification": "This agreement follows Indian laws. Any disputes about this agreement (including whether it's valid or has ended) will be resolved through arbitration in New Delhi under India's Arbitration Act 1996. Both parties will agree on one arbitrator, and the arbitration will be conducted in English.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Parties",
+        "role": "general"
+      },
+      {
+        "text": "sole arbitrator",
+        "role": "third-party"
+      }
+    ],
+    "obligations": [
+      "refer disputes to arbitration",
+      "appoint arbitrator by mutual agreement",
+      "conduct arbitration in English"
+    ],
+    "coverage": [
+      "disputes arising from Agreement",
+      "questions regarding existence",
+      "questions regarding validity",
+      "questions regarding termination"
+    ],
+    "exceptions": [],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Governed by laws of India",
+    "Arbitration in New Delhi under Arbitration and Conciliation Act 1996",
+    "Sole arbitrator appointed by mutual agreement",
+    "Arbitration language is English"
+  ]
+}

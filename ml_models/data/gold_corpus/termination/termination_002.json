@@ -1,0 +1,31 @@
+{
+  "id": "termination_002",
+  "clause_type": "termination",
+  "original_text": "Either Party may terminate this Agreement immediately upon written notice if the other Party: (a) commits a material breach of this Agreement and fails to cure such breach within thirty (30) days after receiving written notice of the breach; (b) becomes the subject of a voluntary petition in bankruptcy or any voluntary proceeding relating to insolvency; or (c) ceases to conduct business in the ordinary course.",
+  "gold_simplification": "Either party can immediately cancel this agreement with written notice if the other party: (1) seriously breaks the agreement and doesn't fix it within 30 days after being notified, (2) files for bankruptcy, or (3) stops doing business normally.",
+  "entities": {
+    "parties": [
+      {
+        "text": "Either Party",
+        "role": "general"
+      }
+    ],
+    "obligations": [
+      "terminate immediately",
+      "provide written notice"
+    ],
+    "coverage": [
+      "material breach",
+      "bankruptcy",
+      "ceasing business"
+    ],
+    "exceptions": [],
+    "amounts": [],
+    "deadlines": []
+  },
+  "key_facts": [
+    "Either party can terminate for cause",
+    "Three triggers: material breach (with 30-day cure), bankruptcy, business cessation",
+    "Immediate termination upon written notice"
+  ]
+}
