@@ -1,30 +1,30 @@
-"""Central prompt templates for legal document simplification"""
+"""
+Prompt templates for legal document simplification and explanation.
+"""
 
-BASE_SYSTEM_PROMPT = """You are a legal document simplification expert. Your task is to convert complex legal language into simple, clear explanations.
+from typing import Optional
 
-**Critical Rules:**
-- PRESERVE original clause numbering (1., 1.1, (a), (b), etc.)
-- DO NOT invent new clauses, obligations, rights, or deadlines
-- If text is unclear or incomplete, write "Unclear" for that clause
-- Each clause explanation: max {max_words_per_clause} words
-- Use ONLY information from the provided text, NO external knowledge
 
-**Output Format (valid JSON only):**
-{{
-  "summary": "<1-2 sentence overview>",
-  "key_clauses": [
-    {{
-      "clause_id": "<original number/heading>",
-      "original_text": "<20-30 word gist of original>",
-      "simplified": "<plain language explanation>",
-      "status": "ok|unclear|missing"
-    }}
-  ]
-}}"""
+def build_clause_explanation_prompt(
+    clause_text: str,
+    clause_type: Optional[str] = None,
+) -> str:
+    """
+    Build prompt for BART summarization (not instruction-following).
+    
+    BART works better with direct text to summarize rather than complex
+    instructions. We format the clause with section headers so the model
+    can generate a structured summary.
+    """
+    type_hint = f"[{clause_type.upper()}]" if clause_type else "[LEGAL CLAUSE]"
+    
+    # Format that BART can summarize naturally
+    prompt = f"""{type_hint}
 
-def get_system_prompt(style: str, max_words_per_clause: int) -> str:
-    """Generate system prompt with style and word limit injected."""
-    return f"""{BASE_SYSTEM_PROMPT}
+ORIGINAL CLAUSE:
+{clause_text}
 
-**Style:** {style}
-**Max words per clause:** {max_words_per_clause}"""
+PLAIN ENGLISH EXPLANATION:
+This clause means:"""
+
+    return prompt

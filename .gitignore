@@ -9,3 +9,10 @@ __pycache__/
 .coverage__pycache__/
 *.pyc
 tests/outputs/
+.pytest_cache/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+
+sessions/

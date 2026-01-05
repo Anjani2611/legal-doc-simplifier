@@ -1,0 +1,21 @@
+# Core ML libraries
+transformers==4.36.0
+datasets==2.16.0
+torch==2.1.0
+sentence-transformers==2.3.1
+
+# Text processing
+textstat==0.7.3
+spacy==3.7.2
+
+# Data handling
+pandas==2.1.4
+numpy==1.24.3
+
+# Utilities
+tqdm==4.66.1
+python-dotenv==1.0.0
+
+# Optional: For Spark NLP (Week 2)
+# pyspark==3.3.1
+# spark-nlp==5.1.0

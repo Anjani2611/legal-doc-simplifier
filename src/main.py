@@ -1,193 +1,309 @@
-"""Main FastAPI application entry point"""
-
-import logging
-import time
-from collections import Counter
-from datetime import datetime
-from contextlib import asynccontextmanager
-
-from fastapi import Depends, FastAPI, Request
+from fastapi import FastAPI, UploadFile, File, Query, HTTPException
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
-from sqlalchemy import text
-from sqlalchemy.orm import Session
+import uvicorn
+import json
+from pathlib import Path
+from datetime import datetime
+import PyPDF2
+from docx import Document
 
-from slowapi import _rate_limit_exceeded_handler
-from slowapi.errors import RateLimitExceeded
-from slowapi.middleware import SlowAPIMiddleware
+from src.export.pdf_generator import PDFGenerator
+from src.export.json_exporter import JSONExporter
+from src.export.simple_pdf_generator import SimplePDFGenerator
+from src.pipelines.simplification import get_simplification_pipeline
 
-from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
-
-from src.logging_config import setup_logging
-from src.database import Base, engine, get_db
-from src.routes import analysis, documents, simplification
-from src.schemas.document import HealthResponse
-from src.settings import settings
-from src.webhooks import webhook_manager
-from src.middleware import (
-    RequestLoggingMiddleware,
-    MetricsMiddleware,
-    limiter,
-)
-from src.api.v1 import v1_router
-from src.api.v2 import v2_router
-
-# ---- Logging setup ----
-setup_logging()
-logger = logging.getLogger("app")
-
-# NOTE: Do NOT create tables at import time (breaks pytest)
-# Base.metadata.create_all(bind=engine)
-
-
-# ================= Lifespan (startup + shutdown) =================
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Handle application startup and shutdown (replaces @app.on_event)."""
-    # ----- Startup -----
-    logger.info(f"Starting {settings.app_name} v{settings.app_version}")
-    logger.info(f"Environment: {settings.environment}")
-    logger.info(f"Debug mode: {settings.debug}")
-
-    try:
-        Base.metadata.create_all(bind=engine)
-        logger.info("Database configured")
-    except Exception as e:
-        logger.warning(f"Database init failed: {e}")
-
-    logger.info("Cache enabled")
-
-    # Application runs while we yield
-    yield
-
-    # ----- Shutdown -----
-    logger.info(f"Shutting down {settings.app_name}")
-
-
-# ================= FastAPI app =================
+# -----------------------------------------------------------------------------
+# App setup
+# -----------------------------------------------------------------------------
 
 app = FastAPI(
-    title=settings.app_name,
-    version=settings.app_version,
-    debug=settings.debug,
-    description="Backend API for legal document simplification and analysis.",
-    lifespan=lifespan,
+    title="Legal Document Simplifier",
+    description="Phase 5: File Upload & Export",
+    version="5.0.0",
 )
 
-# ---- Rate limiting + middleware ----
-app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
-app.add_middleware(SlowAPIMiddleware)
-app.add_middleware(RequestLoggingMiddleware)
-app.add_middleware(MetricsMiddleware)
-
-# ---- CORS ----
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:8000"],
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ---- Optional basic in-memory metrics ----
-metrics = Counter()
+# Static frontend
+if Path("frontend").exists():
+    app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+# Session storage
+SESSION_DIR = Path("sessions")
+SESSION_DIR.mkdir(exist_ok=True)
+
+# Single shared pipeline instance (lazy singleton)
+pipeline = get_simplification_pipeline()
+
+# -----------------------------------------------------------------------------
+# Helper functions
+# -----------------------------------------------------------------------------
+
+def _extract_pdf_text(file_path: str) -> str:
+    text = ""
+    try:
+        with open(file_path, "rb") as f:
+            reader = PyPDF2.PdfReader(f)
+            for page in reader.pages:
+                page_text = page.extract_text() or ""
+                text += page_text + "\n"
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"PDF extraction failed: {e}")
+    return text.strip()
 
 
-@app.middleware("http")
-async def basic_metrics(request: Request, call_next):
-    """Simple in-memory metrics for /metrics/basic."""
-    metrics["requests_total"] += 1
-    start = time.time()
-    response = await call_next(request)
-    duration_ms = (time.time() - start) * 1000
-    metrics["latency_sum_ms"] += duration_ms
-    return response
+def _extract_docx_text(file_path: str) -> str:
+    text = ""
+    try:
+        doc = Document(file_path)
+        for p in doc.paragraphs:
+            text += (p.text or "") + "\n"
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"DOCX extraction failed: {e}")
+    return text.strip()
 
 
-@app.get("/metrics/basic", tags=["metrics"])
-async def basic_metrics_endpoint():
-    """Return simple in-memory metrics for requests."""
-    total = metrics.get("requests_total", 0)
-    latency_sum = metrics.get("latency_sum_ms", 0.0)
-    avg_latency = latency_sum / total if total else 0.0
-    return {
-        "requests_total": total,
-        "avg_latency_ms": round(avg_latency, 2),
-    }
+def _session_json_path(session_id: str) -> Path:
+    return SESSION_DIR / f"{session_id}.json"
 
 
-@app.get("/metrics", tags=["metrics"])
-async def metrics_endpoint():
-    """Prometheus-compatible metrics endpoint."""
-    data = generate_latest()
-    return Response(content=data, media_type=CONTENT_TYPE_LATEST)
+def _save_session(session_id: str, metadata: dict) -> None:
+    p = _session_json_path(session_id)
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(metadata, f, ensure_ascii=False)
 
 
-@app.post("/webhooks/register", tags=["webhooks"])
-async def register_webhook(event: str, url: str):
-    """Register a webhook for document events."""
-    if event not in webhook_manager.webhooks:
-        webhook_manager.webhooks[event] = []
-    webhook_manager.webhooks[event].append(url)
-    return {"status": "registered", "event": event}
+def _load_session(session_id: str) -> dict:
+    p = _session_json_path(session_id)
+    if not p.exists():
+        raise HTTPException(status_code=404, detail="Session not found")
+    with open(p, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+# -----------------------------------------------------------------------------
+# Core endpoints
+# -----------------------------------------------------------------------------
+
+@app.get("/")
+def root():
+    return {"message": "Legal Document Simplifier - Phase 5", "frontend": "/app"}
 
 
-@app.get("/", tags=["root"])
-async def read_root():
-    """Root endpoint - returns API info."""
-    return {
-        "message": f"{settings.app_name} is running",
-        "environment": settings.environment,
-        "docs": "/docs",
-    }
+@app.get("/app", response_class=HTMLResponse)
+def serve_app():
+    index_path = Path("frontend/index.html")
+    if not index_path.exists():
+        raise HTTPException(status_code=500, detail="frontend/index.html not found")
+    return index_path.read_text(encoding="utf-8")
 
 
-@app.get("/health", tags=["health"], response_model=HealthResponse)
-async def health_check(db: Session = Depends(get_db)):
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
     """
-    Comprehensive health check including database.
-
-    Tests expect status == 'healthy', but we still report DB state.
+    Phase 5: upload PDF/DOCX, extract text, run full pipeline,
+    persist session, return structured result.
     """
     try:
-        db.execute(text("SELECT 1"))
-        db_status = "ok"
+        if file.content_type not in [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ]:
+            raise HTTPException(status_code=400, detail="Only PDF and DOCX files allowed")
+
+        content = await file.read()
+        if len(content) > 25 * 1024 * 1024:
+            raise HTTPException(status_code=400, detail="File too large (max 25MB)")
+
+        session_id = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+        session_dir = SESSION_DIR / session_id
+        session_dir.mkdir(parents=True, exist_ok=True)
+
+        file_path = session_dir / file.filename
+        with open(file_path, "wb") as f:
+            f.write(content)
+
+        if file.filename.lower().endswith(".pdf"):
+            text = _extract_pdf_text(str(file_path))
+        else:
+            text = _extract_docx_text(str(file_path))
+
+        # Pipeline returns JSON string → parse to dict
+        simplify_json = pipeline.simplify(text)
+        simplify_output = json.loads(simplify_json)
+
+        metadata = {
+            "session_id": session_id,
+            "filename": file.filename,
+            "file_path": str(file_path),
+            "upload_timestamp": datetime.now().isoformat(),
+            "extracted_text": text,
+            "simplify_output": simplify_output,
+        }
+        _save_session(session_id, metadata)
+
+        return {
+            "session_id": session_id,
+            "filename": file.filename,
+            "message": "File uploaded and processed successfully",
+            "simplify_output": simplify_output,
+        }
+    except HTTPException:
+        raise
     except Exception as e:
-        db_status = f"error: {str(e)}"
+        raise HTTPException(status_code=500, detail=str(e))
 
-    return HealthResponse(
-        status="healthy",
-        database=db_status,
-        timestamp=datetime.utcnow(),
-    )
+# -----------------------------------------------------------------------------
+# Exports
+# -----------------------------------------------------------------------------
+
+@app.post("/export/pdf")
+async def export_pdf(session_id: str = Query(...)):
+    """Full analysis PDF."""
+    try:
+        metadata = _load_session(session_id)
+        gen = PDFGenerator()
+        pdf_bytes = gen.generate(
+            filename=metadata["filename"],
+            simplify_output=metadata["simplify_output"],
+            timestamp=metadata["upload_timestamp"],
+        )
+
+        # FastAPI FileResponse from bytes: use StreamingResponse-like pattern
+        from fastapi.responses import Response
+
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'attachment; filename="{Path(metadata["filename"]).stem}_report.pdf"'
+            },
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/config", tags=["debug"])
-async def get_config():
-    """Get current config (debug endpoint - disable in production)."""
-    if not settings.debug:
-        return {"error": "Not available in production"}
+@app.post("/export/pdf/simple")
+async def export_simple_pdf(session_id: str = Query(...)):
+    """Simplified-text-only PDF."""
+    try:
+        metadata = _load_session(session_id)
+        gen = SimplePDFGenerator()
+        pdf_bytes = gen.generate(
+            filename=metadata["filename"],
+            simplify_output=metadata["simplify_output"],
+            timestamp=metadata["upload_timestamp"],
+        )
 
-    masked_db_url = settings.database_url
-    if "@" in masked_db_url:
-        _user_part, rest = masked_db_url.split("@", 1)
-        masked_db_url = "postgresql://***:***@" + rest
+        from fastapi.responses import Response
 
-    return {
-        "app_name": settings.app_name,
-        "environment": settings.environment,
-        "debug": settings.debug,
-        "database_url": masked_db_url,
-    }
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f'attachment; filename="{Path(metadata["filename"]).stem}_simplified.pdf"'
+            },
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-# ---- Legacy routers ----
-app.include_router(documents.router)
-app.include_router(simplification.router)
-app.include_router(analysis.router)
+@app.post("/export/json")
+async def export_json(session_id: str = Query(...)):
+    """Structured JSON export."""
+    try:
+        metadata = _load_session(session_id)
+        exporter = JSONExporter()
+        json_bytes = exporter.export(
+            filename=metadata["filename"],
+            simplify_output=metadata["simplify_output"],
+            upload_timestamp=metadata["upload_timestamp"],
+        )
 
-# ---- Versioned routers ----
-app.include_router(v1_router)
-app.include_router(v2_router)
+        from fastapi.responses import Response
+
+        return Response(
+            content=json_bytes,
+            media_type="application/json",
+            headers={
+                "Content-Disposition": f'attachment; filename="{Path(metadata["filename"]).stem}_data.json"'
+            },
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# -----------------------------------------------------------------------------
+# Session maintenance
+# -----------------------------------------------------------------------------
+
+@app.get("/session/{session_id}")
+def get_session(session_id: str):
+    try:
+        metadata = _load_session(session_id)
+        return {
+            "session_id": session_id,
+            "filename": metadata["filename"],
+            "upload_timestamp": metadata["upload_timestamp"],
+            "clauses_count": len(metadata.get("simplify_output", {}).get("clauses", [])),
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/session/{session_id}")
+def delete_session(session_id: str):
+    try:
+        session_dir = SESSION_DIR / session_id
+        if session_dir.exists():
+            import shutil
+            shutil.rmtree(session_dir)
+
+        json_path = _session_json_path(session_id)
+        if json_path.exists():
+            json_path.unlink()
+
+        return {"status": "deleted", "session_id": session_id}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+# -----------------------------------------------------------------------------
+# Phase‑4 compatible text endpoint (used by /app.js)
+# -----------------------------------------------------------------------------
+
+@app.get("/simplify/text")
+def simplify_text(text: str = Query(...), target_level: str = Query(default="simple")):
+    """
+    Phase‑4 style endpoint used by the new UI.
+
+    It calls SimplificationPipeline.simplify(text), which returns a JSON string,
+    then parses it to a dict so the frontend gets `summary`, `clauses`, etc.
+    """
+    try:
+        simplify_json = pipeline.simplify(text)
+        result = json.loads(simplify_json)
+        return result
+    except Exception as e:
+        import traceback
+        print("ERROR in simplify_text:", e)
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail=f"Simplification error: {e}")
+
+# -----------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,0 +1,9 @@
+{
+  "input_id": "doc1_short_contract",
+  "doc_name": "Short Contract Sample",
+  "target_style": "Plain English, numbered clauses, bullet points for sub-clauses",
+  "max_words_per_clause": 80,
+  "language_mix": "English with legal terminology",
+  "expected_compression_ratio": 0.1,
+  "notes": "Simple contract, 2–3 pages equivalent"
+}

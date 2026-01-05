@@ -1,0 +1,11 @@
+metric,value
+timestamp,2026-01-02T14:08:49.797700
+success_count,20
+total_requests,20
+error_count,0
+p50,10.576
+p95,26.778
+p99,26.778
+mean,14.256
+min,8.500
+max,26.778

@@ -1,0 +1,9 @@
+{
+  "input_id": "doc2_tos",
+  "doc_name": "Terms of Service",
+  "target_style": "Plain English, preserve numbered sections, avoid jargon",
+  "max_words_per_clause": 100,
+  "language_mix": "English with minimal legal jargon",
+  "expected_compression_ratio": 0.12,
+  "notes": "Standard ToS, 4–5 pages equivalent"
+}

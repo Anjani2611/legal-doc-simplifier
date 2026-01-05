@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Document Simplifier</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Legal Document Simplifier</h1>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Input Section -->
+            <div class="section input-section">
+                <h2>Input</h2>
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="text-input">Text Input</button>
+                    <button class="tab-button" data-tab="file-upload">File Upload</button>
+                </div>
+
+                <!-- Text Input Tab -->
+                <div id="text-input" class="tab-content active">
+                    <div class="form-group">
+                        <label for="textInput">Paste your legal text:</label>
+                        <textarea id="textInput" class="form-control" rows="8" placeholder="Paste legal document text here..."></textarea>
+                    </div>
+                    <button id="simplifyBtn" class="btn btn-primary">Simplify Text</button>
+                </div>
+
+                <!-- File Upload Tab -->
+                <div id="file-upload" class="tab-content">
+                    <div class="upload-zone" id="uploadZone">
+                        <h3>Drag & Drop Your File</h3>
+                        <p>or click to browse</p>
+                        <p class="upload-info">Supports PDF and DOCX (max 25MB)</p>
+                    </div>
+                    <input type="file" id="fileInput" style="display:none;" accept=".pdf,.docx">
+                    <div id="uploadProgress" class="upload-progress" style="display:none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p id="progressText">Uploading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="section output-section">
+                <h2>Results (Original + Explanation)</h2>
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="results">Results</button>
+                    <button class="tab-button" data-tab="export-pdf">PDF Export</button>
+                    <button class="tab-button" data-tab="export-json">JSON Data</button>
+                </div>
+
+                <!-- Results Tab -->
+                <div id="results" class="tab-content active">
+                    <div id="resultsContainer" class="results-container">
+                        <p class="placeholder">Results will appear here after processing...</p>
+                    </div>
+                </div>
+
+                <!-- PDF Export Tab -->
+                <div id="export-pdf" class="tab-content">
+                    <div class="export-panel">
+                        <h3>PDF Export Options</h3>
+                        
+                        <div style="margin: 2rem 0;">
+                            <h4>Simplified PDF</h4>
+                            <p>Clean, readable version with simplified text only.</p>
+                            <button id="downloadSimplePdfBtn" class="btn btn-primary" style="margin-top: 1rem;">
+                                Download Simplified PDF
+                            </button>
+                        </div>
+                        
+                        <div style="border-top: 2px solid var(--border); padding-top: 2rem; margin-top: 2rem;">
+                            <h4>Complete Analysis Report</h4>
+                            <p>Full report with original text, analysis, and metadata.</p>
+                            <button id="downloadPdfBtn" class="btn btn-primary" style="margin-top: 1rem;">
+                                Download Analysis Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JSON Export Tab -->
+                <div id="export-json" class="tab-content">
+                    <div class="export-panel">
+                        <h3>JSON Data Export</h3>
+                        <p>Download complete analysis as machine-readable JSON.</p>
+                        <button id="downloadJsonBtn" class="btn btn-primary" style="margin-top: 1.5rem;">
+                            Download JSON Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Messages -->
+            <div id="messageContainer" class="message-container"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Legal Document Simplifier</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

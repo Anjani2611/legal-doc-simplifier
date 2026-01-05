@@ -1,0 +1,9 @@
+{
+  "input_id": "doc3_long_contract",
+  "doc_name": "Long Contract with Complex Terms",
+  "target_style": "Plain English, preserve clause numbering (1.1, 1.2, etc.), identify key risks",
+  "max_words_per_clause": 120,
+  "language_mix": "English with legal and business terminology",
+  "expected_compression_ratio": 0.15,
+  "notes": "Complex contract, 8+ pages, multiple clauses"
+}
